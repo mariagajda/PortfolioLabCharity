@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -13,22 +13,9 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
 </head>
 <body>
-<header class="header--main-page">
-    <nav class="container container--70">
-        <ul class="nav--actions">
-            <li><a href="" class="btn btn--small btn--without-border">Zaloguj</a></li>
-            <li><a href="#" class="btn btn--small btn--highlighted">Załóż konto</a></li>
-        </ul>
+<%@include file="fragmentsOfHtml/header.jsp" %>
 
-        <ul>
-            <li><a href="#" class="btn btn--without-border active">Start</a></li>
-            <li><a href="#" class="btn btn--without-border">O co chodzi?</a></li>
-            <li><a href="#" class="btn btn--without-border">O nas</a></li>
-            <li><a href="#" class="btn btn--without-border">Fundacje i organizacje</a></li>
-            <li><a href="#" class="btn btn--without-border">Kontakt</a></li>
-        </ul>
-    </nav>
-
+<header>
     <div class="slogan container container--90">
         <div class="slogan--item">
             <h1>
@@ -108,57 +95,42 @@
             Możesz sprawdzić czym się zajmują.</p>
 
         <ul class="help--slides-items">
-            <li>
-                <div class="col">
-                    <div class="title">Fundacja "Dbam o Zdrowie"</div>
-                    <div class="subtitle">Cel i misja: Pomoc dzieciom z ubogich rodzin.</div>
-                </div>
+            <c:forEach items="${institutionsPairs}" var="institutonsPair">
+                <li>
+                    <div class="col">
+                        <div class="title">${institutonsPair.nameFirst}</div>
+                        <div class="subtitle">${institutonsPair.descriptionFirst}</div>
+                    </div>
 
-                <div class="col">
-                    <div class="title">Fundacja "A kogo"</div>
-                    <div class="subtitle">Cel i misja: Pomoc wybudzaniu dzieci ze śpiączki.</div>
-                </div>
-            </li>
+                    <c:choose>
 
-            <li>
-                <div class="col">
-                    <div class="title">Fundacja “Dla dzieci"</div>
-                    <div class="subtitle">Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji życiowej.</div>
-                </div>
-                <div class="col">
-                    <div class="title">Fundacja “Bez domu”</div>
-                    <div class="subtitle">Cel i misja: Pomoc dla osób nie posiadających miejsca zamieszkania</div>
-                </div>
+                        <c:when test="${institutonsPair.nameSecond != null && institutonsPair.descriptionSecond != null}">
+                            <div class="col">
+                                <div class="title">
+                                        ${institutonsPair.nameSecond}
+                                </div>
+                                <div class="subtitle">
+                                        ${institutonsPair.descriptionSecond}
+                                </div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="col">
+                                <div class="title"></div>
+                                <div class="subtitle"></div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
 
-            </li>
+                </li>
+            </c:forEach>
 
         </ul>
     </div>
 
 </section>
 
-<footer>
-    <div class="contact">
-        <h2>Skontaktuj się z nami</h2>
-        <h3>Formularz kontaktowy</h3>
-        <form class="form--contact">
-            <div class="form-group form-group--50"><input type="text" name="name" placeholder="Imię"/></div>
-            <div class="form-group form-group--50"><input type="text" name="surname" placeholder="Nazwisko"/></div>
-
-            <div class="form-group"><textarea name="message" placeholder="Wiadomość" rows="1"></textarea></div>
-
-            <button class="btn" type="submit">Wyślij</button>
-        </form>
-    </div>
-    <div class="bottom-line">
-        <span class="bottom-line--copy">Copyright &copy; 2018</span>
-        <div class="bottom-line--icons">
-            <a href="#" class="btn btn--small"><img src="images/icon-facebook.svg"/></a> <a href="#"
-                                                                                            class="btn btn--small"><img
-                src="images/icon-instagram.svg"/></a>
-        </div>
-    </div>
-</footer>
+<%@include file="fragmentsOfHtml/footer.jsp" %>
 
 <script src="<c:url value="/resources/js/app.js"/>"></script>
 </body>
