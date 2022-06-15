@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
 </head>
 <body>
-<%@include file="fragmentsOfHtml/header.jsp" %>
+<%@include file="fragmentsOfHtml/header_mainPage.jsp" %>
 
 <header>
     <div class="slogan container container--90">
@@ -103,7 +103,6 @@
                     </div>
 
                     <c:choose>
-
                         <c:when test="${institutonsPair.nameSecond != null && institutonsPair.descriptionSecond != null}">
                             <div class="col">
                                 <div class="title">
@@ -114,12 +113,6 @@
                                 </div>
                             </div>
                         </c:when>
-                        <c:otherwise>
-                            <div class="col">
-                                <div class="title"></div>
-                                <div class="subtitle"></div>
-                            </div>
-                        </c:otherwise>
                     </c:choose>
 
                 </li>

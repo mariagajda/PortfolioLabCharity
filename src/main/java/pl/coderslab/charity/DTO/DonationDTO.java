@@ -1,17 +1,15 @@
-package pl.coderslab.charity.entity;
+package pl.coderslab.charity.DTO;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.coderslab.charity.entity.Category;
+import pl.coderslab.charity.entity.Institution;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-@Entity
-public class Donation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class DonationDTO {
     private Integer quantity;
     private String street;
     private String city;
@@ -22,35 +20,9 @@ public class Donation {
     private LocalTime pickUpTime;
     private String pickUpComment;
 
-    @ManyToMany
     private List<Category> categories;
-
-    @ManyToOne
     private Institution institution;
 
-    public Donation() {
-    }
-
-    public Donation(Integer quantity, String street, String city, String zipCode, String phoneNumber, LocalDate pickUpDate, LocalTime pickUpTime, String pickUpComment, List<Category> categories, Institution institution) {
-        this.quantity = quantity;
-        this.street = street;
-        this.city = city;
-        this.zipCode = zipCode;
-        this.phoneNumber = phoneNumber;
-        this.pickUpDate = pickUpDate;
-        this.pickUpTime = pickUpTime;
-        this.pickUpComment = pickUpComment;
-        this.categories = categories;
-        this.institution = institution;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Integer getQuantity() {
         return quantity;
@@ -132,3 +104,4 @@ public class Donation {
         this.institution = institution;
     }
 }
+

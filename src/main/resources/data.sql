@@ -12,3 +12,9 @@ INSERT INTO donation (city, phone_number, pick_up_comment, pick_up_date, pick_up
      VALUES ('Kraków', '345456567', 'no comments', '2022-06-29', '18:00', 2, 'Wielka', '03-030', (SELECT id FROM institution WHERE name = 'Fundacja "Dla dzieci"'));
 INSERT INTO donation (city, phone_number, pick_up_comment, pick_up_date, pick_up_time, quantity, street, zip_code, institution_id)
      VALUES ('Gdynia', '567678789', 'no comments', '2022-06-23', '15:00', 1, 'Nowa', '42-030', (SELECT id FROM institution WHERE name = 'Fundacja "Bez domu"'));
+
+INSERT INTO category (name) VALUE ('ubrania, które nadają się do ponownego użycia');
+INSERT INTO category (name) VALUE ('ubrania, do wyrzucenia');
+INSERT INTO category (name) VALUE ('zabawki');
+INSERT INTO category (name) VALUE ('książki');
+INSERT INTO category (name) VALUE ('inne');

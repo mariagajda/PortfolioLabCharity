@@ -2,10 +2,11 @@ package pl.coderslab.charity.DTO;
 
 public class InstitutionPairDTO {
     private String nameFirst;
-    private String descriptionSecond;
+    private String descriptionFirst;
 
     private String nameSecond;
-    private String descriptionFirst;
+    private String descriptionSecond;
+
 
     public InstitutionPairDTO(String nameFirst, String descriptionFirst, String nameSecond, String descriptionSecond) {
         this.nameFirst = nameFirst;

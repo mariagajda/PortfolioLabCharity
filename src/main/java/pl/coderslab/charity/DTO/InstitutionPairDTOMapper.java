@@ -5,12 +5,14 @@ import pl.coderslab.charity.entity.Institution;
 
 @Component
 public class InstitutionPairDTOMapper {
-    public InstitutionPairDTO toDto(Institution institution1, Institution institution2){
+    public InstitutionPairDTO toDto(Institution institution1, Institution institution2) {
         String nameFirst = institution1.getName();
         String descriptionFirst = institution1.getDescription();
-
-        String nameSecond = institution2.getName();
-        String descriptionSecond = institution2.getDescription();
-        return new InstitutionPairDTO(nameFirst, descriptionFirst, nameSecond, descriptionSecond);
+        if (institution2 != null) {
+            String nameSecond = institution2.getName();
+            String descriptionSecond = institution2.getDescription();
+            return new InstitutionPairDTO(nameFirst, descriptionFirst, nameSecond, descriptionSecond);
+        }
+        return new InstitutionPairDTO(nameFirst, descriptionFirst, null, null);
     }
 }

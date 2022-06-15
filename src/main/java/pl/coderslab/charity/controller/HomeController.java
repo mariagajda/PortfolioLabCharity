@@ -5,68 +5,32 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.DTO.InstitutionPairDTO;
-import pl.coderslab.charity.DTO.InstitutionPairDTOMapper;
-import pl.coderslab.charity.entity.Donation;
-import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.repository.DonationRepository;
-import pl.coderslab.charity.repository.InstitutionRepository;
+import pl.coderslab.charity.service.DonationService;
+import pl.coderslab.charity.service.InstitutionService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 @Controller
 public class HomeController {
-    private final InstitutionRepository institutionRepository;
-    private final InstitutionPairDTOMapper institutionPairDTOMapper;
     private final DonationRepository donationRepository;
+    private final InstitutionService institutionService;
+    private final DonationService donationService;
 
 
-    public HomeController(InstitutionRepository institutionRepository, InstitutionPairDTOMapper institutionPairDTOMapper, DonationRepository donationRepository) {
-        this.institutionRepository = institutionRepository;
-        this.institutionPairDTOMapper = institutionPairDTOMapper;
+    public HomeController(DonationRepository donationRepository, InstitutionService institutionService, DonationService donationService) {
         this.donationRepository = donationRepository;
+        this.institutionService = institutionService;
+        this.donationService = donationService;
     }
 
     @RequestMapping("/")
     public String homeAction(Model model) {
+        model.addAttribute("institutionsPairs", institutionService.getInstitutionPairDTOList());
+        model.addAttribute("bagsQuantity", donationService.getBagsQuantity());
+        model.addAttribute("donationsQuantity", donationRepository.findAll().size());
         return "index";
     }
 
-    @ModelAttribute("institutionsPairs")
-    public List<InstitutionPairDTO> getInstitutionPairs() {
-        List<Institution> institutionList = institutionRepository.findAll();
-        List<InstitutionPairDTO> institutionPairDTOList = new ArrayList<>();
-        for (int i = 0; i <= institutionList.size()-1; i = i + 2) {
-            if (institutionList.size() % 2 == 0) {
-                institutionPairDTOList.add(institutionPairDTOMapper.toDto(institutionList.get(i), institutionList.get(i + 1)));
-            } else {
-                if(i < institutionList.size() - 2){
-                    institutionPairDTOList.add(institutionPairDTOMapper.toDto(institutionList.get(i), institutionList.get(i + 1)));
-                } else {
-                    institutionPairDTOList.add(institutionPairDTOMapper.toDto(institutionList.get(i), new Institution()));
-
-                }
-            }
-        }
-        return institutionPairDTOList;
-    }
-
-    @ModelAttribute("bagsQuantity")
-    public Long getBagsQuantity(){
-        Long bagsQuantity = 0L;
-
-//      donationRepository.findAll().stream()
-//              .forEach(donation -> bagsQuantity += donation.getQuantity())
-
-        for(Donation donation : donationRepository.findAll()){
-            bagsQuantity += donation.getQuantity();
-        }
-        return bagsQuantity;
-    }
-
-    @ModelAttribute("donationsQuantity")
-    public Integer getDonationsQuantity(){
-        return donationRepository.findAll().size();
-    }
 }
