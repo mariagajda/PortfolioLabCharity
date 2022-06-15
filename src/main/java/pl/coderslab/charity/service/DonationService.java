@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.repository.DonationRepository;
 
+import java.util.stream.Collectors;
+
 @Service
 public class DonationService {
     private final DonationRepository donationRepository;
@@ -13,11 +15,10 @@ public class DonationService {
     }
 
     public Long getBagsQuantity(){
-        Long bagsQuantity = 0L;
-        //stream - map na quantity -> long -> sum
-        for(Donation donation : donationRepository.findAll()){
-            bagsQuantity += donation.getQuantity();
-        }
-        return bagsQuantity;
+        return donationRepository.findAll().stream()
+                .map(donation -> donation.getQuantity())
+                .collect(Collectors.toList())
+                .stream().mapToLong(num -> num.longValue())
+                .sum();
     }
 }
