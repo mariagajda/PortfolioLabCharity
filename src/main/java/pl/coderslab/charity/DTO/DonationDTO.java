@@ -5,22 +5,51 @@ import pl.coderslab.charity.entity.Category;
 import pl.coderslab.charity.entity.Institution;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
 public class DonationDTO {
+    @Min(1)
+    @Max(10)
+    @NotNull
     private Integer quantity;
+
+    @Size(min=2, message = "{pattern.street}")
+    @NotNull
+    @NotBlank
     private String street;
+
+    @Size(min=2, message = "{pattern.city}")
+    @NotNull
+    @NotBlank
     private String city;
+
+    @Pattern(regexp = "^[0-9]{2}-[0-9]{3}$", message = "{pattern.zipCode}")
+    @NotNull
+    @NotBlank
     private String zipCode;
+
+    @NotNull
+    @NotBlank
+    @Pattern(regexp = "(?<!\\w)(\\(?(\\+|00)?48\\)?)?[ -]?\\d{3}[ -]?\\d{3}[ -]?\\d{3}(?!\\w)", message = "{pattern.phonenumber}")
     private String phoneNumber;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
+    @Future
     private LocalDate pickUpDate;
+
+    @NotNull
     private LocalTime pickUpTime;
+
     private String pickUpComment;
 
+    @NotNull
     private List<Category> categories;
+
+    @NotNull
     private Institution institution;
 
 

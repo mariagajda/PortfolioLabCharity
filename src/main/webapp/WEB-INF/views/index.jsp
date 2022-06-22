@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <a href="#" class="btn btn--large">Załóż konto</a>
+    <a href="/form" class="btn btn--large">Przejdź do formularza</a>
 </section>
 
 <section class="about-us">

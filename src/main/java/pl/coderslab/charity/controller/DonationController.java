@@ -39,6 +39,8 @@ public class DonationController {
     @RequestMapping(value = "/form", method = RequestMethod.POST)
     public String saveDonation(Model model, @Valid DonationDTO donationDTO, BindingResult result) {
         if (result.hasErrors()) {
+            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("institutions", institutionRepository.findAll());
             return "form";
         }
         donationRepository.save(donationDTOMapper.dtoToDonation(donationDTO));

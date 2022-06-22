@@ -3,6 +3,7 @@ package pl.coderslab.charity.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -12,13 +13,19 @@ public class Donation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Integer quantity;
+
     private String street;
+
     private String city;
+
     private String zipCode;
+
     private String phoneNumber;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
     private LocalDate pickUpDate;
+
     private LocalTime pickUpTime;
     private String pickUpComment;
 
